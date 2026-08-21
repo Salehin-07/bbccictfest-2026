@@ -1,0 +1,39 @@
+Drop photos here. Filenames below are referenced by index.html.
+Recommended: square JPG/WebP, ~200x200px, optimized (<30KB each).
+
+MEMBERS (images/members/)
+  Tofazzol Hossen Sir  ->  images/members/tofazzol-hossen.jpg
+  A. N. M. Bazlur Rahman Sir  ->  images/members/a-n-m-bazlur-rahman.jpg
+  Delwar Hossain Sir  ->  images/members/delwar-hossain.jpg
+  Shahin Al Mamun Sir  ->  images/members/shahin-al-mamun.jpg
+  Aminul Haque Sir  ->  images/members/aminul-haque.jpg
+  Kaderuzaman Rana Sir  ->  images/members/kaderuzaman-rana.jpg
+  Razzak Sir  ->  images/members/razzak.jpg
+  Shuvo Sir  ->  images/members/shuvo.jpg
+  Samir Talukder  ->  images/members/samir-talukder.jpg
+  Abu Salehin  ->  images/members/abu-salehin.jpg
+  Azizul Islam  ->  images/members/azizul-islam.jpg
+  Shawcho  ->  images/members/shawcho.jpg
+  Sazidur Rahman  ->  images/members/sazidur-rahman.jpg
+  Nuren Zarif Haque  ->  images/members/nuren-zarif-haque.jpg
+  Shuddo Pandit  ->  images/members/shuddo-pandit.jpg
+  Shafiq Muammer  ->  images/members/shafiq-muammer.jpg
+  Hasan Tasauf Khan  ->  images/members/hasan-tasauf-khan.jpg
+  Shahol Islam Soad  ->  images/members/shahol-islam-soad.jpg
+  Jubayer Ahmed  ->  images/members/jubayer-ahmed.jpg
+  Shariful Islam Sumon  ->  images/members/shariful-islam-sumon.jpg
+  Abir  ->  images/members/abir.jpg
+  Azizul Islam  ->  images/members/azizul-islam-2.jpg
+  Alve Shafi  ->  images/members/alve-shafi.jpg
+  Al Amin  ->  images/members/al-amin.jpg
+  Shah Neyamot Ullah  ->  images/members/shah-neyamot-ullah.jpg
+  Saad Mohammad OBAIDULLAH  ->  images/members/saad-mohammad-obaidullah.jpg
+  Raiyan Sarwaor  ->  images/members/raiyan-sarwaor.jpg
+  Jakaria Ibn Habib  ->  images/members/jakaria-ibn-habib.jpg
+  Shayon  ->  images/members/shayon.jpg
+  Asaduzzman Joy  ->  images/members/asaduzzman-joy.jpg
+
+GUESTS (images/guests/)
+  To Be Announced  ->  images/guests/guest-1.jpg
+  To Be Announced  ->  images/guests/guest-2.jpg
+  To Be Announced  ->  images/guests/guest-3.jpg
