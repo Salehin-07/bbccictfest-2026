@@ -4,6 +4,7 @@
 #am-rotate, #am-fsbtn, #am-pad, #am-look { display: none; }
 
 body.am-touch #am-fsbtn { display: flex; }
+#am-fsbtn { display: flex; }
 body.am-touch #am-pad { display: flex; }
 body.am-touch.am-needs-rotate #am-rotate { display: flex; }
 body.am-touch.am-dos #am-look { display: block; }

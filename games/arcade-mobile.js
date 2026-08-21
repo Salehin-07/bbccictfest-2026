@@ -8,7 +8,6 @@
 
   var touch = window.matchMedia('(hover: none) and (pointer: coarse)').matches ||
               ('ontouchstart' in window && !window.matchMedia('(pointer: fine)').matches);
-  if (!touch) return;
 
   var file = (location.pathname.split('/').pop() || '').toLowerCase();
 
@@ -36,8 +35,8 @@
 
   var cfg = CONFIG[file] || { dpad: true, rotate: true, fs: true, buttons: [] };
   var fsBtnEl = null;
-  document.body.classList.add('am-touch');
-  if (cfg.dos) document.body.classList.add('am-dos');
+  if (touch) document.body.classList.add('am-touch');
+  if (cfg.dos && touch) document.body.classList.add('am-dos');
 
   var KEYCODE = { ArrowUp: 38, ArrowDown: 40, ArrowLeft: 37, ArrowRight: 39, ' ': 32, Control: 17, Enter: 13, Shift: 16, r: 82, x: 88, z: 90 };
 
@@ -120,7 +119,7 @@
   }
 
   // Virtual look surface (DOS)
-  if (cfg.look) {
+  if (cfg.look && touch) {
     var look = document.createElement('div');
     look.id = 'am-look';
     root.appendChild(look);
@@ -158,7 +157,7 @@
   pad.id = 'am-pad';
   root.appendChild(pad);
 
-  if (cfg.dpad) {
+  if (cfg.dpad && touch) {
     var dpad = document.createElement('div');
     dpad.id = 'am-dpad';
     var dirs = [
@@ -181,7 +180,7 @@
     pad.appendChild(clusterL);
   }
 
-  if (cfg.buttons && cfg.buttons.length) {
+  if (touch && cfg.buttons && cfg.buttons.length) {
     var actions = document.createElement('div');
     actions.id = 'am-actions';
     actions.className = 'am-cluster';
