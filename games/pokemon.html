@@ -184,7 +184,7 @@
           <b>On your phone or tablet:</b> tap the fullscreen button (top-right) for the best view, then tap the game screen to start and use the on-screen gamepad to play comfortably.
         </div>
         <div class="controls">
-          <span class="kbd">←↑↓→</span> / <span class="kbd">WASD</span> D-pad&nbsp;·&nbsp;<span class="kbd">Z</span> B&nbsp;·&nbsp;<span class="kbd">X</span> A&nbsp;·&nbsp;<span class="kbd">Enter</span> Start&nbsp;·&nbsp;<span class="kbd">Shift</span> Select&nbsp;·&nbsp;<span class="kbd">Esc</span> menu
+          <span class="kbd">←↑↓→</span> / <span class="kbd">WASD</span> D-pad&nbsp;·&nbsp;          <span class="kbd">Z</span> B&nbsp;·&nbsp;<span class="kbd">X</span> A&nbsp;·&nbsp;<span class="kbd">Enter</span> Start&nbsp;·&nbsp;<span class="kbd">Shift</span> Select&nbsp;·&nbsp;<span class="kbd">Esc</span> menu
         </div>
         <div class="emu-wrap">
           <div id="game"></div>
@@ -353,16 +353,16 @@
         window.EJS_theme = '#0A0908';
         window.EJS_backgroundColor = '#0A0908';
         window.EJS_volume = 1.0;
-        window.EJS_defaultControllers = {
+        window.EJS_defaultControls = {
           0: {
-            0:  { value: 'z',     value2: 'BUTTON_2' },
+             0:  { value: 'z',     value2: 'BUTTON_2' },
             2:  { value: 'shift', value2: 'SELECT' },
             3:  { value: 'enter', value2: 'START' },
             4:  { value: 'up arrow',    value2: 'DPAD_UP' },
             5:  { value: 'down arrow',  value2: 'DPAD_DOWN' },
             6:  { value: 'left arrow',  value2: 'DPAD_LEFT' },
             7:  { value: 'right arrow', value2: 'DPAD_RIGHT' },
-            8:  { value: 'x',     value2: 'BUTTON_1' },
+             8:  { value: 'x',     value2: 'BUTTON_1' },
             10: { value: 'q',     value2: 'LEFT_TOP_SHOULDER' },
             11: { value: 'e',     value2: 'RIGHT_TOP_SHOULDER' },
             12: { value: 'tab',   value2: 'LEFT_BOTTOM_SHOULDER' },
@@ -396,7 +396,7 @@
           if (key && key.indexOf('ejs-') === 0 && key.indexOf('-settings') !== -1) {
             try {
               var saved = JSON.parse(localStorage.getItem(key));
-              saved.controlSettings = JSON.parse(JSON.stringify(window.EJS_defaultControllers));
+              saved.controlSettings = JSON.parse(JSON.stringify(window.EJS_defaultControls));
               localStorage.setItem(key, JSON.stringify(saved));
             } catch (e) {}
           }
