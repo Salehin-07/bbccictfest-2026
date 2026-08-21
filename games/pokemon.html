@@ -122,6 +122,7 @@
 
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
   </style>
+  <link rel="stylesheet" href="arcade-mobile.css">
 </head>
 <body>
   <nav class="arcade-nav" aria-label="Arcade navigation">
@@ -180,7 +181,7 @@
           All Pokémon games
         </a>
         <div class="emu-note">
-          <b>Please click once on the screen to play.</b>
+          <b>On your phone or tablet:</b> tap the fullscreen button (top-right) for the best view, then tap the game screen to start and use the on-screen gamepad to play comfortably.
         </div>
         <div class="controls">
           <span class="kbd">←↑↓→</span> / <span class="kbd">WASD</span> D-pad&nbsp;·&nbsp;<span class="kbd">Z</span> B&nbsp;·&nbsp;<span class="kbd">X</span> A&nbsp;·&nbsp;<span class="kbd">Enter</span> Start&nbsp;·&nbsp;<span class="kbd">Shift</span> Select&nbsp;·&nbsp;<span class="kbd">Esc</span> menu
@@ -352,7 +353,7 @@
         window.EJS_theme = '#0A0908';
         window.EJS_backgroundColor = '#0A0908';
         window.EJS_volume = 1.0;
-        window.EJS_Buttons = { gamepad: false };
+        window.EJS_Buttons = { gamepad: true };
 
         localStorage.removeItem('ejs-1-gb-settings');
         localStorage.removeItem('ejs-1-gba-settings');
@@ -450,5 +451,6 @@
       }
     })();
   </script>
+  <script src="arcade-mobile.js"></script>
 </body>
 </html>

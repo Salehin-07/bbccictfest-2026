@@ -90,6 +90,7 @@
 
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
   </style>
+  <link rel="stylesheet" href="arcade-mobile.css">
 </head>
 <body>
   <nav class="arcade-nav" aria-label="Arcade navigation">
@@ -127,24 +128,25 @@
       <div class="game-head">
         <span class="game-tag">Paddle Duel</span>
         <h1>Pong</h1>
-        <p>Move your paddle with the mouse or finger. First to 7 points wins the rally.</p>
+        <p>Two players, one screen. Player 1 uses <b>W / S</b> (or the left half on touch), Player 2 uses <b>↑ / ↓</b> (or the right half). First to 7 wins.</p>
       </div>
       <div class="game-arena">
         <div class="controls">
-          <span class="kbd">Mouse</span><span class="kbd">Touch</span> move paddle
-          <span class="kbd">W</span><span class="kbd">S</span> keyboard
+          <span class="kbd">W</span><span class="kbd">S</span> Player 1
+          <span class="kbd">↑</span><span class="kbd">↓</span> Player 2
+          <span class="kbd">Touch</span> left / right halves
         </div>
 
         <div class="game-stats">
-          <div class="stat"><b id="you">0</b><span>You</span></div>
-          <div class="stat"><b id="cpu">0</b><span>CPU</span></div>
-          <div class="stat"><b id="wins">0</b><span>Best Streak</span></div>
+          <div class="stat"><b id="you">0</b><span>Player 1</span></div>
+          <div class="stat"><b id="cpu">0</b><span>Player 2</span></div>
+          <div class="stat"><b id="wins">0</b><span>P1 Streak</span></div>
         </div>
         <div class="board-wrap">
           <canvas id="board" width="640" height="360" aria-label="Pong canvas"></canvas>
           <div class="overlay" id="overlay">
             <h2 id="ovTitle">First to 7</h2>
-            <p id="ovSub">Beat the CPU</p>
+            <p id="ovSub">Player 1 vs Player 2</p>
             <button class="btn" id="restartBtn">Serve</button>
           </div>
         </div>
@@ -209,16 +211,7 @@
         you.y += keys.y * 6;
         you.y = Math.max(0, Math.min(H - PADDLE_H, you.y));
 
-        var target = ball.y - PADDLE_H / 2 + Math.sin(performance.now() / 300) * 14;
-        if (ball.vx > 0 && Math.abs(cpu.y + PADDLE_H / 2 - ball.y) > 10) {
-          if (cpu.y + PADDLE_H / 2 < ball.y) cpu.y += CPU_SPEED;
-          else cpu.y -= CPU_SPEED;
-        } else {
-          if (Math.abs(cpu.y + PADDLE_H / 2 - H / 2) > 6) {
-            if (cpu.y + PADDLE_H / 2 < H / 2) cpu.y += CPU_SPEED * 0.7;
-            else cpu.y -= CPU_SPEED * 0.7;
-          }
-        }
+        cpu.y += keys2.y * 6;
         cpu.y = Math.max(0, Math.min(H - PADDLE_H, cpu.y));
 
         ball.x += ball.vx;
@@ -267,11 +260,11 @@
               winsEl.textContent = best;
               localStorage.setItem('bbcc_pong_best', best);
             }
-            ovTitle.textContent = 'You Win!';
+            ovTitle.textContent = 'Player 1 Wins!';
             ovSub.textContent = youScore + '–' + cpuScore + ' · ' + streak + ' streak';
           } else {
             streak = 0;
-            ovTitle.textContent = 'CPU Wins';
+            ovTitle.textContent = 'Player 2 Wins';
             ovSub.textContent = youScore + '–' + cpuScore;
           }
           overlay.classList.add('show');
@@ -326,23 +319,32 @@
         ctx.fillText('FIRST TO 7', W / 2, 30);
       }
 
-      var keys = { y: 0 };
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'w' || e.key === 'W' || e.key === 'ArrowUp') keys.y = -1;
-        if (e.key === 's' || e.key === 'S' || e.key === 'ArrowDown') keys.y = 1;
-      });
-      document.addEventListener('keyup', function (e) {
-        if (e.key === 'w' || e.key === 'W' || e.key === 'ArrowUp' || e.key === 's' || e.key === 'S' || e.key === 'ArrowDown') keys.y = 0;
-      });
+      var keys = { y: 0 }, keys2 = { y: 0 };
+      function setKey(e, down) {
+        var k = (e.key || '').toLowerCase();
+        if (k === 'w') keys.y = down ? -1 : 0;
+        else if (k === 's') keys.y = down ? 1 : 0;
+        else if (e.key === 'ArrowUp') keys2.y = down ? -1 : 0;
+        else if (e.key === 'ArrowDown') keys2.y = down ? 1 : 0;
+      }
+      document.addEventListener('keydown', function (e) { setKey(e, true); });
+      document.addEventListener('keyup', function (e) { setKey(e, false); });
 
+      function moveFromY(target, clientY, rect) {
+        target.y = Math.max(0, Math.min(H - PADDLE_H, (clientY - rect.top) * (H / rect.height) - PADDLE_H / 2));
+      }
       cv.addEventListener('mousemove', function (e) {
-        var rect = cv.getBoundingClientRect();
-        you.y = Math.max(0, Math.min(H - PADDLE_H, (e.clientY - rect.top) * (H / rect.height) - PADDLE_H / 2));
+        moveFromY(you, e.clientY, cv.getBoundingClientRect());
       });
       cv.addEventListener('touchmove', function (e) {
         e.preventDefault();
         var rect = cv.getBoundingClientRect();
-        you.y = Math.max(0, Math.min(H - PADDLE_H, (e.touches[0].clientY - rect.top) * (H / rect.height) - PADDLE_H / 2));
+        var mid = rect.left + rect.width / 2;
+        for (var i = 0; i < e.touches.length; i++) {
+          var t = e.touches[i];
+          if (t.clientX < mid) moveFromY(you, t.clientY, rect);
+          else moveFromY(cpu, t.clientY, rect);
+        }
       }, { passive: false });
 
       document.getElementById('restartBtn').addEventListener('click', function () {
@@ -353,5 +355,6 @@
       reset();
     })();
   </script>
+  <script src="arcade-mobile.js"></script>
 </body>
 </html>
