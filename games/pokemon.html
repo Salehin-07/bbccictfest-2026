@@ -353,11 +353,6 @@
         window.EJS_theme = '#0A0908';
         window.EJS_backgroundColor = '#0A0908';
         window.EJS_volume = 1.0;
-        window.EJS_Buttons = { gamepad: true, playPause: true, restart: true, mute: true, fullscreen: true, saveGame: true, loadGame: true, volume: true, settings: false, cheat: false };
-
-        localStorage.removeItem('ejs-1-gb-settings');
-        localStorage.removeItem('ejs-1-gba-settings');
-
         window.EJS_defaultControllers = {
           0: {
             0:  { value: 'z',     value2: 'BUTTON_2' },
@@ -393,6 +388,19 @@
           2: {},
           3: {}
         };
+
+        window.EJS_Buttons = { gamepad: false, playPause: true, restart: true, mute: true, fullscreen: true, saveGame: true, loadGame: true, volume: true, settings: true, cheat: false };
+
+        for (var i = localStorage.length - 1; i >= 0; i--) {
+          var key = localStorage.key(i);
+          if (key && key.indexOf('ejs-') === 0 && key.indexOf('-settings') !== -1) {
+            try {
+              var saved = JSON.parse(localStorage.getItem(key));
+              saved.controlSettings = JSON.parse(JSON.stringify(window.EJS_defaultControllers));
+              localStorage.setItem(key, JSON.stringify(saved));
+            } catch (e) {}
+          }
+        }
 
         if (!window.__wasdBound) {
           window.__wasdBound = true;
